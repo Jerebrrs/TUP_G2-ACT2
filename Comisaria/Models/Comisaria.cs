@@ -10,47 +10,43 @@ namespace Comisaria.Models
     {
         public int CantidadInicidentes { get; private set; }
 
-        List<Policia> agentes = new List<Policia>();
-        public bool AsignarPolicia(Policia pol) {
-            Policia poli = VerAgente(pol.NumeroPlaca);
+        public List<Policia> agentes = new List<Policia>();
 
-            if (poli != null)
-            {
-                agentes.Add(pol);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+        public List<Guardia> guardias = new List<Guardia>();
+        public Comisaria()
+        {
+          
+        }
+        public bool AsignarPolicia(Policia pol) {
+            agentes.Add(pol);
+            return true;
         }
         public Policia VerAgente(int nPlaca)
         {
-            int idx = -1;
-            int i = 0;
-            for ( i = 0; i < agentes.Count; i++)
+            for (int i = 0; i < agentes.Count; i++)
             {
-                while (idx == -1 && i<agentes.Count)
+                if (agentes[i].NumeroPlaca == nPlaca)
                 {
-                    if (nPlaca == agentes[i].NumeroPlaca)
-                    {
-                        idx=i;
-                    }
+                    return agentes[i];
                 }
             }
-
-            if (idx!=-1)
-            {
-                return agentes[i];
-            }
-            else
-            {
-                return null;
-            }
+            return null;
         }
-        public void AsignarGuardia()
+        public void AsignarGuardia(int guardia, int h1, int m1, int tiemMinut, int placaAgente)
         {
+            Guardia guardiaNueva = new Guardia();
 
+
+
+            Policia agente = VerAgente(placaAgente);
+
+
+            if (agente != null)
+            {
+                guardiaNueva.AsignarPolicia(agente, h1, m1, tiemMinut);
+                guardias.Add(guardiaNueva);
+
+            }
         }
 
     }
